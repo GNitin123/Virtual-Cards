@@ -1,0 +1,31 @@
+.virtual-card-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-style: normal;
+  padding: 2rem 1.5rem 1rem;
+  font-weight: normal;
+  font-style: normal;
+  &__heading {
+    display: flex;
+    align-items: center;
+    &__learn-more {
+      color: $blue--six;
+      padding: 0.4em;
+      margin: 0.3rem 1rem 0;
+      border-radius: 0.3rem;
+      background: $grey--four;
+    }
+  }
+  &__add-card {
+    font-weight: 500;
+    font-size: 18px;
+    padding: 0.7rem 1.5rem;
+    background-color: $white;
+    border-radius: 0.3rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  }
+  &__plus-icon {
+    margin-right: 0.5rem;
+  }
+}
