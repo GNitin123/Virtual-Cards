@@ -2,6 +2,7 @@ import { VideoCameraOutlined, PlusOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import VirtualCardFilter from '../components/VirtualCard/Filter';
 const { TabPane } = Tabs;
 
 const VirtualCards = () => {
@@ -45,6 +46,7 @@ const VirtualCards = () => {
       >
         {tabPane}
       </Tabs>
+      <VirtualCardFilter />
     </div>
   );
 };
