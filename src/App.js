@@ -9,15 +9,17 @@ import PageNotFound from './pages/PageNotFound';
 
 const App = () => {
   return (
-    <Router>
-      <VirtualCards />
-      <Routes>
-        <Route path="/" element={<AllVirtualCard />} />
-        <Route path="/blocked" element={<BlockedVirtualCard />} />
-        <Route path="/your" element={<YourVirtualCard />} />
-        <Route path="*" element={<PageNotFound />} />
-      </Routes>
-    </Router>
+    <div className="app-container">
+      <Router>
+        <VirtualCards />
+        <Routes>
+          <Route path="/" element={<AllVirtualCard />} />
+          <Route path="/blocked" element={<BlockedVirtualCard />} />
+          <Route path="/your" element={<YourVirtualCard />} />
+          <Route path="*" element={<PageNotFound />} />
+        </Routes>
+      </Router>
+    </div>
   );
 };
 
