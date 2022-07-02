@@ -1,11 +1,14 @@
 .virtual-card-wrapper {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   font-style: normal;
-  padding: 2rem 1.5rem 1rem;
+  padding: 2rem 3rem;
   font-weight: normal;
   font-style: normal;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+  }
   &__heading {
     display: flex;
     align-items: center;
@@ -27,5 +30,19 @@
   }
   &__plus-icon {
     margin-right: 0.5rem;
+  }
+  .ant-tabs-tab-btn {
+    font-size: 20px;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #1d1d1d;
+    font-weight: 500;
+  }
+  .ant-tabs-ink-bar {
+    background: $red--two;
+    height: 4px !important;
+  }
+  .ant-tabs-tab:hover {
+    color: #1d1d1d;
   }
 }
