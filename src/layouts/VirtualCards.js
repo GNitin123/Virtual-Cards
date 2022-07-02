@@ -1,20 +1,25 @@
 import { VideoCameraOutlined, PlusOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 const { TabPane } = Tabs;
 
 const VirtualCards = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [tabList] = useState([
     { key: 1, text: 'Your', value: 'your' },
-    { key: 2, text: 'All', value: 'all' },
+    { key: 2, text: 'All', value: '' },
     { key: 3, text: 'Blocked', value: 'blocked' },
   ]);
+  const [currentTab, setCurrentTab] = useState(pathname.slice(1));
 
-  const tabPane = tabList.map(tab => (
-    <TabPane tab={tab.text} key={tab.key}>
-      {tab.value}
-    </TabPane>
-  ));
+  const handleTabClick = key => {
+    setCurrentTab(key);
+    navigate(`/${key}`);
+  };
+
+  const tabPane = tabList.map(tab => <TabPane tab={tab.text} key={tab.value} />);
 
   return (
     <div className="virtual-card-wrapper">
@@ -31,7 +36,13 @@ const VirtualCards = () => {
           </span>
         </div>
       </div>
-      <Tabs size="large" tabBarStyle={{ color: 'grey' }} tabBarGutter={40} defaultActiveKey="1">
+      <Tabs
+        size="large"
+        tabBarStyle={{ color: 'grey' }}
+        tabBarGutter={40}
+        defaultActiveKey={currentTab}
+        onTabClick={handleTabClick}
+      >
         {tabPane}
       </Tabs>
     </div>
