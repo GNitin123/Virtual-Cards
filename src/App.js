@@ -6,18 +6,21 @@ import AllVirtualCard from './pages/All';
 import BlockedVirtualCard from './pages/Blocked';
 import YourVirtualCard from './pages/Your';
 import PageNotFound from './pages/PageNotFound';
+import { VirtualCardProvider } from './context/VirtualCardContext';
 
 const App = () => {
   return (
     <div className="app-container">
       <Router>
-        <VirtualCards />
-        <Routes>
-          <Route path="/" element={<AllVirtualCard />} />
-          <Route path="/blocked" element={<BlockedVirtualCard />} />
-          <Route path="/your" element={<YourVirtualCard />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
+        <VirtualCardProvider>
+          <VirtualCards />
+          <Routes>
+            <Route path="/" element={<AllVirtualCard />} />
+            <Route path="/blocked" element={<BlockedVirtualCard />} />
+            <Route path="/your" element={<YourVirtualCard />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </VirtualCardProvider>
       </Router>
     </div>
   );
