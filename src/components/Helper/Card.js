@@ -4,7 +4,7 @@ import { Tag, Skeleton } from 'antd';
 import { useContext } from 'react';
 import VirtualCardContext from '../../context/VirtualCardContext';
 
-const Card = ({ cardContent }) => {
+const Card = ({ cardContent, spent, availableToSpend }) => {
   const { isCardListLoading } = useContext(VirtualCardContext);
 
   return (
@@ -53,8 +53,11 @@ const Card = ({ cardContent }) => {
       <div className="flex mb">
         {!isCardListLoading ? (
           <>
-            <span className="card__spent-indicator" style={{ width: '50%' }}></span>
-            <span className="card__available-indicator" style={{ width: '50%' }}></span>
+            <span className="card__spent-indicator" style={{ width: `${spent}%` }}></span>
+            <span
+              className="card__available-indicator"
+              style={{ width: `${availableToSpend}%` }}
+            ></span>
           </>
         ) : (
           <Skeleton.Input block active style={{ height: '16px' }} />
