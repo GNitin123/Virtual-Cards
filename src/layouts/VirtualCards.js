@@ -1,9 +1,10 @@
 import { VideoCameraOutlined, PlusOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import VirtualCardFilter from '../components/VirtualCard/Filter';
 import useAPI from '../core/api/api';
+import VirtualCardContext from '../context/VirtualCardContext';
 const { TabPane } = Tabs;
 
 const myOwnerId = 1;
@@ -18,6 +19,7 @@ const VirtualCards = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { getCardDetail } = useAPI();
+  const { setCardList } = useContext(VirtualCardContext);
   const [tabList] = useState([
     { key: 1, text: 'Your', value: 'your' },
     { key: 2, text: 'All', value: '' },
@@ -26,7 +28,7 @@ const VirtualCards = () => {
   const [currentTab, setCurrentTab] = useState(pathname.slice(1));
 
   useEffect(() => {
-    currentTab && fetchCardData(currentTab);
+    fetchCardData(currentTab);
   }, []);
 
   const getCardQuery = filterKey => {
@@ -40,7 +42,7 @@ const VirtualCards = () => {
   const fetchCardData = async filterKey => {
     const query = getCardQuery(filterKey);
     const response = await getCardDetail({ ...query });
-    // console.log(response);
+    setCardList(response);
   };
 
   const handleTabChange = key => {
