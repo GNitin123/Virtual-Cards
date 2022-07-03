@@ -1,39 +1,47 @@
-// import FireIcon from 'mdi-react/FireIcon';
+import FireIcon from 'mdi-react/FireIcon';
 import AutoRenewIcon from 'mdi-react/AutorenewIcon';
 import { Tag, Skeleton } from 'antd';
-import { useState } from 'react';
+import { useContext } from 'react';
+import VirtualCardContext from '../../context/VirtualCardContext';
 
-const Card = () => {
-  const [isLoading, setIsLoading] = useState(false);
+const Card = ({ cardContent }) => {
+  const { isCardListLoading } = useContext(VirtualCardContext);
 
   return (
     <div className="card">
       <div className="flex mb">
-        {!isLoading ? (
+        {!isCardListLoading ? (
           <div>
-            <div className="card__name">MixMax</div>
+            <div className="card__name">{cardContent.name}</div>
             <div className="card__card-holder flex">
-              Vishal <div className="card__dot"></div>
-              <span>Software Subscription</span>
+              {cardContent.card_holder} <div className="card__dot"></div>
+              <span>{cardContent.budget_name}</span>
             </div>
           </div>
         ) : (
           <Skeleton active paragraph={{ rows: 1 }} />
         )}
         <div className="card__icon-background">
-          {/* <FireIcon className="card__icon" size={40} /> */}
-          {!isLoading ? (
-            <AutoRenewIcon className="card__icon" size={40} />
+          {!isCardListLoading ? (
+            cardContent.card_type === 'burner' ? (
+              <FireIcon className="card__icon" size={40} />
+            ) : (
+              <AutoRenewIcon className="card__icon" size={40} />
+            )
           ) : (
             <Skeleton.Avatar className="card__icon" size="large" active />
           )}
         </div>
       </div>
       <div className="flex mb">
-        {!isLoading ? (
+        {!isCardListLoading ? (
           <>
-            <Tag className="card__type">Burner</Tag>
-            <p className="card__type-limit">Expires: 9 Feb</p>
+            <Tag className="card__type">{cardContent.card_type}</Tag>
+            <p className="card__type-limit">
+              {cardContent.card_type === 'burner'
+                ? `Expires: ${cardContent.expiry}`
+                : `${cardContent.expiry.slice(1)} Limit: ${cardContent.limit} SGD`}
+            </p>
           </>
         ) : (
           <>
@@ -43,7 +51,7 @@ const Card = () => {
         )}
       </div>
       <div className="flex mb">
-        {!isLoading ? (
+        {!isCardListLoading ? (
           <>
             <span className="card__spent-indicator" style={{ width: '50%' }}></span>
             <span className="card__available-indicator" style={{ width: '50%' }}></span>
@@ -53,24 +61,28 @@ const Card = () => {
         )}
       </div>
       <div className="card__spent flex">
-        {!isLoading ? (
+        {!isCardListLoading ? (
           <>
             <p className="flex">
               <span className="card__spent-point"></span> Spent
             </p>
-            <p>148 SDG</p>
+            <p>
+              {cardContent.spent.value} {cardContent.spent.currency}
+            </p>
           </>
         ) : (
           <Skeleton.Input block active style={{ height: '16px' }} />
         )}
       </div>
       <div className="card__spend flex">
-        {!isLoading ? (
+        {!isCardListLoading ? (
           <>
             <p className="flex">
               <span className="card__spend-point"></span> Available to spend
             </p>
-            <p className="card__spend-amount">30 SDG</p>
+            <p className="card__spend-amount">
+              {cardContent.available_to_spend.value} {cardContent.available_to_spend.currency}
+            </p>
           </>
         ) : (
           <Skeleton.Input block active style={{ height: '16px' }} />

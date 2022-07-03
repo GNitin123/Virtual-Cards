@@ -1,13 +1,18 @@
-import cardData from '../db/virtualCards.json';
+import card from '../db/DBOperations/Card';
+import VirtualCardContext from '../../context/VirtualCardContext';
+import { useContext } from 'react';
 
 const useAPI = () => {
-  const getCardDetail = ({ status }) => {
-    return new Promise((resolve, reject) => {
+  const { setIsCardListLoading } = useContext(VirtualCardContext);
+
+  const getCardDetail = query => {
+    return new Promise(async (resolve, reject) => {
       try {
-        const filteredData =
-          cardData.length > 0 ? cardData.filter(card => card.status === status) : [];
+        setIsCardListLoading(true);
+        const response = card.get(query);
         setTimeout(() => {
-          resolve(filteredData);
+          resolve(response);
+          setIsCardListLoading(false);
         }, 500);
       } catch (error) {
         reject(error);
