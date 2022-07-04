@@ -33,11 +33,13 @@ const useFetchCard = () => {
   };
 
   const fetchCardData = async (filterKey, pagination) => {
+    setCardList([]);
     getCardQuery(filterKey, pagination);
     console.log('queryResponse', query);
     const response = await getCardDetail({ ...query });
+    const list = response.card;
     setMeta(response.meta);
-    setCardList(response.card);
+    setCardList(list);
     query = {};
   };
   return {
