@@ -1,21 +1,36 @@
 import cardData from '../../db/virtualCards.json';
 
 class Card {
-  #find(query) {
+  static #validQueries = ['ownerId', 'status', 'limit', 'offset'];
+  static #offset = 1;
+  static #limit = 10;
+
+  static #find(query) {
     let newCardList = [...cardData.card];
     if ('ownerId' in query)
       newCardList = newCardList.filter(card => card.owner_id === query.ownerId);
     if ('status' in query) newCardList = newCardList.filter(card => card.status === query.status);
-    return newCardList;
+    return Card.#getPaginatedData(newCardList, query);
   }
-  constructor() {
-    this.validQueries = ['ownerId', 'status'];
+  static #getPaginatedData(cardList, query) {
+    let { offset = Card.#offset, limit = Card.#limit } = query;
+    const paginationList = cardList.slice((offset - 1) * limit, limit + (offset - 1) * limit);
+    return {
+      card: paginationList,
+      meta: {
+        page: offset,
+        perPage: limit,
+        nextPage: limit * offset >= cardList.length ? null : ++offset,
+        total: cardList.length,
+      },
+    };
   }
+
   get(query = {}) {
     const queryKeys = Object.keys(query);
-    const isOperationValid = queryKeys.every(queryKey => this.validQueries.includes(queryKey));
+    const isOperationValid = queryKeys.every(queryKey => Card.#validQueries.includes(queryKey));
     if (!isOperationValid) throw new Error('Invalid Query');
-    return this.#find(query);
+    return Card.#find(query);
   }
 }
 
