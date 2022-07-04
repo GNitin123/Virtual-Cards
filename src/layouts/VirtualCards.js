@@ -1,11 +1,10 @@
 import { VideoCameraOutlined, PlusOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
 import _ from 'lodash';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import VirtualCardFilter from '../components/VirtualCard/Filter';
 import useFetchCard from '../utils/fetchCard';
-import VirtualCardContext from '../context/VirtualCardContext';
 
 const { TabPane } = Tabs;
 
@@ -13,7 +12,6 @@ const VirtualCards = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { fetchCardData } = useFetchCard();
-  const { setCardList } = useContext(VirtualCardContext);
   const [tabList] = useState([
     { key: 1, text: 'Your', value: 'your' },
     { key: 2, text: 'All', value: '' },
@@ -26,7 +24,6 @@ const VirtualCards = () => {
   }, []);
 
   const handleTabChange = key => {
-    setCardList([]);
     setCurrentTab(key);
     navigate(`/${key}`);
     fetchCardData(key, { limit: 10, offset: 1 });
