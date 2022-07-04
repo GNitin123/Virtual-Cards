@@ -1,25 +1,18 @@
 import { VideoCameraOutlined, PlusOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd';
-import { useEffect, useState, useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import VirtualCardFilter from '../components/VirtualCard/Filter';
-import useAPI from '../core/api/api';
+import useFetchCard from '../utils/fetchCard';
 import VirtualCardContext from '../context/VirtualCardContext';
+
 const { TabPane } = Tabs;
-
-const myOwnerId = 1;
-
-const statusDictionary = {
-  your: myOwnerId,
-  all: {},
-  blocked: 'blocked',
-};
 
 const VirtualCards = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { getCardDetail } = useAPI();
-  const { setCardList } = useContext(VirtualCardContext);
+  const { fetchCardData } = useFetchCard();
+  const { cardList, setCardList } = useContext(VirtualCardContext);
   const [tabList] = useState([
     { key: 1, text: 'Your', value: 'your' },
     { key: 2, text: 'All', value: '' },
@@ -28,27 +21,13 @@ const VirtualCards = () => {
   const [currentTab, setCurrentTab] = useState(pathname.slice(1));
 
   useEffect(() => {
-    fetchCardData(currentTab);
+    fetchCardData(currentTab, { limit: 10, offset: 1 });
   }, []);
-
-  const getCardQuery = filterKey => {
-    return {
-      ...(filterKey === 'your' && { ownerId: statusDictionary.your }),
-      ...(filterKey === '' && statusDictionary.all),
-      ...(filterKey === 'blocked' && { status: statusDictionary.blocked }),
-    };
-  };
-
-  const fetchCardData = async filterKey => {
-    const query = getCardQuery(filterKey);
-    const response = await getCardDetail({ ...query });
-    setCardList(response);
-  };
 
   const handleTabChange = key => {
     setCurrentTab(key);
     navigate(`/${key}`);
-    fetchCardData(key);
+    fetchCardData(key, { limit: 10, offset: 1 });
   };
 
   const tabPane = tabList.map(tab => <TabPane tab={tab.text} key={tab.value} />);
