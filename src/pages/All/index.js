@@ -16,7 +16,6 @@ const AllVirtualCard = () => {
 
   const loadMore = () => {
     if (meta?.nextPage) {
-      console.log(meta?.nextPage);
       fetchCardData(null, { limit: 10, offset: meta?.nextPage });
     }
   };
