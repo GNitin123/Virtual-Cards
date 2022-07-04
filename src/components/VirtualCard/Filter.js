@@ -3,10 +3,17 @@ import { FilterOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons
 import { useState } from 'react';
 const { Option } = Select;
 
-const Filter = () => {
+const Filter = ({ searchValue }) => {
   const [isSearch, setIsSearch] = useState(false);
 
-  const clearSearch = () => setIsSearch(preSearch => !preSearch);
+  const clearSearch = () => {
+    setIsSearch(preSearch => !preSearch);
+    searchValue('');
+  };
+
+  const handleChange = event => {
+    searchValue && searchValue(event.target.value);
+  };
 
   const text = <div className="filter__menu-title">Filters</div>;
 
@@ -44,13 +51,17 @@ const Filter = () => {
     <div className="filter">
       <div className="filter__search">
         {!isSearch ? (
-          <SearchOutlined className="filter__search-icon" onClick={clearSearch} />
+          <SearchOutlined
+            className="filter__search-icon"
+            onClick={() => setIsSearch(preSearch => !preSearch)}
+          />
         ) : (
           <Input
             suffix={<CloseOutlined onClick={clearSearch} />}
             bordered={false}
             placeholder="Input Card Name"
             className="filter__search-input"
+            onChange={handleChange}
           />
         )}
       </div>

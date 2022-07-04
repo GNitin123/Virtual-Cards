@@ -10,6 +10,7 @@ const statusDictionary = {
   blocked: 'blocked',
   limit: 10,
   offset: 1,
+  search: '',
 };
 
 let query = {};
@@ -20,7 +21,11 @@ const useFetchCard = () => {
 
   const getCardQuery = (
     filterKey,
-    { limit = statusDictionary.limit, offset = statusDictionary.offset },
+    {
+      limit = statusDictionary.limit,
+      offset = statusDictionary.offset,
+      search = statusDictionary.search,
+    },
   ) => {
     query = {
       ...query,
@@ -29,13 +34,12 @@ const useFetchCard = () => {
       ...(filterKey === 'blocked' && { status: statusDictionary.blocked }),
       limit: limit,
       offset: offset,
+      search,
     };
   };
 
   const fetchCardData = async (filterKey, pagination) => {
-    setCardList([]);
     getCardQuery(filterKey, pagination);
-    console.log('queryResponse', query);
     const response = await getCardDetail({ ...query });
     const list = response.card;
     setMeta(response.meta);

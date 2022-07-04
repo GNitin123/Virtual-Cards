@@ -1,15 +1,20 @@
 import cardData from '../../db/virtualCards.json';
 
 class Card {
-  static #validQueries = ['ownerId', 'status', 'limit', 'offset'];
+  static #validQueries = ['ownerId', 'status', 'limit', 'offset', 'search'];
   static #offset = 1;
   static #limit = 10;
 
   static #find(query) {
+    console.log(query.search, 'search');
     let newCardList = [...cardData.card];
     if ('ownerId' in query)
       newCardList = newCardList.filter(card => card.owner_id === query.ownerId);
     if ('status' in query) newCardList = newCardList.filter(card => card.status === query.status);
+    if ('search' in query)
+      newCardList = newCardList.filter(card =>
+        card.name.toLowerCase().includes(query.search.toLowerCase()),
+      );
     return Card.#getPaginatedData(newCardList, query);
   }
   static #getPaginatedData(cardList, query) {
