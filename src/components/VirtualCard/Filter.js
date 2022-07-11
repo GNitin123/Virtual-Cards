@@ -1,10 +1,18 @@
 import { Button, Input, Popover, Checkbox, Select } from 'antd';
 import { FilterOutlined, SearchOutlined, CloseOutlined } from '@ant-design/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useFetchCard from '../../utils/fetchCard';
 const { Option } = Select;
 
-const Filter = ({ searchValue }) => {
+const Filter = ({ searchValue, filterData, cardHolderList }) => {
   const [isSearch, setIsSearch] = useState(false);
+  const [cardType, setCardType] = useState('');
+  const [cardHolder, setCardHolder] = useState('');
+  const { getCardHolders } = useFetchCard();
+
+  useEffect(() => {
+    getCardHolders();
+  }, []);
 
   const clearSearch = () => {
     setIsSearch(preSearch => !preSearch);
@@ -15,17 +23,49 @@ const Filter = ({ searchValue }) => {
     searchValue && searchValue(event.target.value);
   };
 
+  const onCardTypeChange = checkedValue => {
+    setCardType(checkedValue.toString());
+  };
+
+  const applyFilter = () => {
+    filterData && filterData({ cardType: cardType });
+  };
+
+  const onCardHolderChange = holderName => {
+    setCardHolder(holderName);
+  };
+
+  const handleFilterClear = () => {
+    setCardType('');
+    setCardHolder('');
+  };
+
   const text = <div className="filter__menu-title">Filters</div>;
+
+  const cardHolderOptions =
+    cardHolderList.length &&
+    cardHolderList.map((name, index) => (
+      <Option key={index} value={name.toLowerCase()}>
+        {name}
+      </Option>
+    ));
 
   const content = (
     <div className="filter__menu-content">
       <div>
         <label className="filter__menu-content-label">Type</label>
         <div className="filter__menu-content-section">
-          <Checkbox className="filter__menu-content-checkbox filter__menu-content-subscription">
-            Subscription
-          </Checkbox>
-          <Checkbox className="filter__menu-content-checkbox">Burner</Checkbox>
+          <Checkbox.Group onChange={onCardTypeChange} style={{ width: '100%' }} value={cardType}>
+            <Checkbox
+              value={'subscription'}
+              className="filter__menu-content-checkbox filter__menu-content-subscription"
+            >
+              Subscription
+            </Checkbox>
+            <Checkbox value={'burner'} className="filter__menu-content-checkbox">
+              Burner
+            </Checkbox>
+          </Checkbox.Group>
         </div>
       </div>
       <div>
@@ -34,14 +74,20 @@ const Filter = ({ searchValue }) => {
           <Select
             size="large"
             className="filter__menu-content-card-holder"
-            defaultValue="Select cardholder"
+            placeholder="Select cardholder"
+            onChange={onCardHolderChange}
+            value={cardHolder}
           >
-            <Option value="jack">Jack</Option>
+            {cardHolderOptions}
           </Select>
         </div>
         <div className="filter__menu-content-btn-box">
-          <Button className="filter__menu-content-btn-box__apply-btn">Apply</Button>
-          <Button className="filter__menu-content-btn-box__clear-btn">Clear</Button>
+          <Button className="filter__menu-content-btn-box__apply-btn" onClick={applyFilter}>
+            Apply
+          </Button>
+          <Button className="filter__menu-content-btn-box__clear-btn" onClick={handleFilterClear}>
+            Clear
+          </Button>
         </div>
       </div>
     </div>

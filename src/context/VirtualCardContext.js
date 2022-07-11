@@ -7,6 +7,7 @@ export const VirtualCardProvider = ({ children }) => {
   const [meta, setMeta] = useState({});
   const [isCardListLoading, setIsCardListLoading] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [cardHolderList, setCardHolderList] = useState([]);
 
   return (
     <VirtualCardContext.Provider
@@ -19,6 +20,8 @@ export const VirtualCardProvider = ({ children }) => {
         setMeta,
         isFilter,
         setIsFilter,
+        cardHolderList,
+        setCardHolderList,
       }}
     >
       {children}

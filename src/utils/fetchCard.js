@@ -16,8 +16,8 @@ const statusDictionary = {
 let query = {};
 
 const useFetchCard = () => {
-  const { getCardDetail } = useAPI();
-  const { setCardList, setMeta } = useContext(VirtualCardContext);
+  const { getCardDetail, getCardHolderDetail } = useAPI();
+  const { setCardList, setMeta, setCardHolderList } = useContext(VirtualCardContext);
 
   const getCardQuery = (
     filterKey,
@@ -47,8 +47,15 @@ const useFetchCard = () => {
     setCardList(list);
     query = {};
   };
+
+  const getCardHolders = async () => {
+    const response = await getCardHolderDetail();
+    setCardHolderList(response);
+  };
+
   return {
     fetchCardData,
+    getCardHolders,
   };
 };
 

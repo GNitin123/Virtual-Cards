@@ -19,7 +19,20 @@ const useAPI = () => {
       }
     });
   };
-  return { getCardDetail };
+
+  const getCardHolderDetail = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        const response = card.getCardHolders();
+        setTimeout(() => {
+          resolve(response);
+        }, 500);
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
+  return { getCardDetail, getCardHolderDetail };
 };
 
 export default useAPI;

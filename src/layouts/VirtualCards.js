@@ -13,7 +13,7 @@ const VirtualCards = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { fetchCardData } = useFetchCard();
-  const { setIsFilter } = useContext(VirtualCardContext);
+  const { setIsFilter, cardHolderList } = useContext(VirtualCardContext);
   const [tabList] = useState([
     { key: 1, text: 'Your', value: 'your' },
     { key: 2, text: 'All', value: '' },
@@ -39,6 +39,10 @@ const VirtualCards = () => {
 
   const searchValue = search => {
     debounceSearch(search);
+  };
+
+  const filterData = ({ cardType }) => {
+    console.log('cardType', cardType);
   };
 
   const tabPane = tabList.map(tab => <TabPane tab={tab.text} key={tab.value} />);
@@ -67,7 +71,11 @@ const VirtualCards = () => {
       >
         {tabPane}
       </Tabs>
-      <VirtualCardFilter searchValue={searchValue} />
+      <VirtualCardFilter
+        searchValue={searchValue}
+        filterData={filterData}
+        cardHolderList={cardHolderList}
+      />
     </div>
   );
 };

@@ -37,6 +37,11 @@ class Card {
     if (!isOperationValid) throw new Error('Invalid Query');
     return Card.#find(query);
   }
+
+  getCardHolders() {
+    let cardHolders = [...cardData.card];
+    return cardHolders.map(card => card.card_holder);
+  }
 }
 
 const card = new Card();
