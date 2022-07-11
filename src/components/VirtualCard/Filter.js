@@ -62,6 +62,7 @@ const Filter = ({ searchValue }) => {
             placeholder="Input Card Name"
             className="filter__search-input"
             onChange={handleChange}
+            autoFocus={true}
           />
         )}
       </div>
