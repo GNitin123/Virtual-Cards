@@ -39,6 +39,7 @@ const useFetchCard = () => {
   };
 
   const fetchCardData = async (filterKey, pagination) => {
+    setCardList([]);
     getCardQuery(filterKey, pagination);
     const response = await getCardDetail({ ...query });
     const list = response.card;

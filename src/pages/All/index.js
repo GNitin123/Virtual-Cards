@@ -5,13 +5,14 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import useFetchCard from '../../utils/fetchCard';
 
 const AllVirtualCard = () => {
-  const { cardList, meta } = useContext(VirtualCardContext);
+  const { cardList, meta, isFilter } = useContext(VirtualCardContext);
   const { fetchCardData } = useFetchCard();
 
   const [allCardList, setAllCardList] = useState([]);
 
   useEffect(() => {
-    setAllCardList([...allCardList, ...cardList]);
+    const newList = isFilter ? [...cardList] : [...allCardList, ...cardList];
+    setAllCardList(newList);
   }, [cardList]);
 
   const loadMore = () => {
