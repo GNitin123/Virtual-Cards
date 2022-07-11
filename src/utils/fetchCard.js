@@ -11,6 +11,7 @@ const statusDictionary = {
   limit: 10,
   offset: 1,
   search: '',
+  cardType: '',
 };
 
 let query = {};
@@ -25,6 +26,7 @@ const useFetchCard = () => {
       limit = statusDictionary.limit,
       offset = statusDictionary.offset,
       search = statusDictionary.search,
+      cardType = statusDictionary.cardType,
     },
   ) => {
     query = {
@@ -35,6 +37,7 @@ const useFetchCard = () => {
       limit: limit,
       offset: offset,
       search,
+      cardType,
     };
   };
 

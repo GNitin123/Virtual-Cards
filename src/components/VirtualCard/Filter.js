@@ -8,6 +8,7 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
   const [isSearch, setIsSearch] = useState(false);
   const [cardType, setCardType] = useState('');
   const [cardHolder, setCardHolder] = useState('');
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { getCardHolders } = useFetchCard();
 
   useEffect(() => {
@@ -28,7 +29,8 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
   };
 
   const applyFilter = () => {
-    filterData && filterData({ cardType: cardType });
+    filterData && filterData({ cardType, cardHolder });
+    setIsFilterOpen(false);
   };
 
   const onCardHolderChange = holderName => {
@@ -112,8 +114,14 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
           />
         )}
       </div>
-      <Popover placement="bottomRight" title={text} content={content} trigger="click">
-        <Button className="filter__button">
+      <Popover
+        visible={isFilterOpen}
+        placement="bottomRight"
+        title={text}
+        content={content}
+        trigger="click"
+      >
+        <Button onClick={() => setIsFilterOpen(!isFilterOpen)} className="filter__button">
           <FilterOutlined /> Filter
         </Button>
       </Popover>

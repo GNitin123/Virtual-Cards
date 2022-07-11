@@ -20,10 +20,12 @@ const VirtualCards = () => {
     { key: 3, text: 'Blocked', value: 'blocked' },
   ]);
   const [currentTab, setCurrentTab] = useState(pathname.slice(1));
+  const [search, setSearch] = useState('');
+  const [cardType, setCardType] = useState('');
 
   useEffect(() => {
-    fetchCardData(currentTab, { limit: 10, offset: 1 });
-  }, []);
+    fetchCardData(currentTab, { limit: !cardType ? 10 : 25, offset: 1, search, cardType });
+  }, [currentTab, search, cardType]);
 
   const handleTabChange = key => {
     setCurrentTab(key);
@@ -34,15 +36,17 @@ const VirtualCards = () => {
   const debounceSearch = _.debounce(search => {
     if (!search) setIsFilter(false);
     else setIsFilter(true);
-    fetchCardData(currentTab, { limit: 10, offset: 1, search });
   }, 500);
 
   const searchValue = search => {
+    setSearch(search);
     debounceSearch(search);
   };
 
-  const filterData = ({ cardType }) => {
-    console.log('cardType', cardType);
+  const filterData = ({ cardType, cardHolder }) => {
+    if (!cardType) setIsFilter(false);
+    else setIsFilter(true);
+    setCardType(cardType);
   };
 
   const tabPane = tabList.map(tab => <TabPane tab={tab.text} key={tab.value} />);
