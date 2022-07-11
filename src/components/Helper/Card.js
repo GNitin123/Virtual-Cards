@@ -1,11 +1,21 @@
 import FireIcon from 'mdi-react/FireIcon';
 import AutoRenewIcon from 'mdi-react/AutorenewIcon';
 import { Tag, Skeleton } from 'antd';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import VirtualCardContext from '../../context/VirtualCardContext';
 
 const Card = ({ cardContent, spent, availableToSpend }) => {
-  const { isCardListLoading } = useContext(VirtualCardContext);
+  const { isCardListLoading, setIsCardListLoading } = useContext(VirtualCardContext);
+
+  useEffect(() => {
+    setIsCardListLoading(true);
+    const timeOutId = setTimeout(() => {
+      setIsCardListLoading(false);
+    }, 400);
+    return () => {
+      clearInterval(timeOutId);
+    };
+  }, []);
 
   return (
     <div className="card">
