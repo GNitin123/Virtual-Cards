@@ -1,5 +1,5 @@
-import 'antd/dist/antd.css';
 import '../src/assets/scss/styles.scss';
+import 'antd/dist/antd.min.css';
 import VirtualCards from './layouts/VirtualCards';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import AllVirtualCard from './pages/All';
