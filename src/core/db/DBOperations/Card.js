@@ -1,7 +1,15 @@
 import cardData from '../../db/virtualCards.json';
 
 class Card {
-  static #validQueries = ['ownerId', 'status', 'limit', 'offset', 'search', 'cardType'];
+  static #validQueries = [
+    'ownerId',
+    'status',
+    'limit',
+    'offset',
+    'search',
+    'cardType',
+    'cardHolder',
+  ];
   static #offset = 1;
   static #limit = 10;
 
@@ -16,6 +24,9 @@ class Card {
       );
     if ('cardType' in query && query.cardType !== '') {
       newCardList = newCardList.filter(card => card.card_type === query.cardType);
+    }
+    if ('cardHolder' in query && query.cardHolder !== '') {
+      newCardList = newCardList.filter(card => card.card_holder.toLowerCase() === query.cardHolder);
     }
     return Card.#getPaginatedData(newCardList, query);
   }

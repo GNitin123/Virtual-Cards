@@ -22,10 +22,17 @@ const VirtualCards = () => {
   const [currentTab, setCurrentTab] = useState(pathname.slice(1));
   const [search, setSearch] = useState('');
   const [cardType, setCardType] = useState('');
+  const [cardHolderName, setCardHolderName] = useState('');
 
   useEffect(() => {
-    fetchCardData(currentTab, { limit: !cardType ? 10 : 25, offset: 1, search, cardType });
-  }, [currentTab, search, cardType]);
+    fetchCardData(currentTab, {
+      limit: !cardType ? 10 : 25,
+      offset: 1,
+      search,
+      cardType,
+      cardHolder: cardHolderName,
+    });
+  }, [currentTab, search, cardType, cardHolderName]);
 
   const handleTabChange = key => {
     setCurrentTab(key);
@@ -44,9 +51,10 @@ const VirtualCards = () => {
   };
 
   const filterData = ({ cardType, cardHolder }) => {
-    if (!cardType) setIsFilter(false);
-    else setIsFilter(true);
+    if (cardType || cardHolder) setIsFilter(true);
+    else setIsFilter(false);
     setCardType(cardType);
+    setCardHolderName(cardHolder);
   };
 
   const tabPane = tabList.map(tab => <TabPane tab={tab.text} key={tab.value} />);

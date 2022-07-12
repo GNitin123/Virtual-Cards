@@ -7,7 +7,7 @@ const { Option } = Select;
 const Filter = ({ searchValue, filterData, cardHolderList }) => {
   const [isSearch, setIsSearch] = useState(false);
   const [cardType, setCardType] = useState('');
-  const [cardHolder, setCardHolder] = useState('');
+  const [cardHolder, setCardHolder] = useState();
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const { getCardHolders } = useFetchCard();
 
@@ -39,7 +39,7 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
 
   const handleFilterClear = () => {
     setCardType('');
-    setCardHolder('');
+    setCardHolder();
   };
 
   const text = <div className="filter__menu-title">Filters</div>;

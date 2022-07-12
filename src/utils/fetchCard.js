@@ -12,6 +12,7 @@ const statusDictionary = {
   offset: 1,
   search: '',
   cardType: '',
+  cardHolder: '',
 };
 
 let query = {};
@@ -27,6 +28,7 @@ const useFetchCard = () => {
       offset = statusDictionary.offset,
       search = statusDictionary.search,
       cardType = statusDictionary.cardType,
+      cardHolder = statusDictionary.cardHolder,
     },
   ) => {
     query = {
@@ -38,6 +40,7 @@ const useFetchCard = () => {
       offset: offset,
       search,
       cardType,
+      cardHolder,
     };
   };
 
