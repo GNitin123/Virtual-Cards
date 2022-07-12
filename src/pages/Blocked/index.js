@@ -5,17 +5,19 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import useFetchCard from '../../utils/fetchCard';
 
 const BlockedVirtualCard = () => {
-  const { cardList, meta } = useContext(VirtualCardContext);
+  const { cardList, meta, isFilter, setIsCardListLoading } = useContext(VirtualCardContext);
   const { fetchCardData } = useFetchCard();
   const [blockedList, setBlockedList] = useState([]);
 
   useEffect(() => {
-    setBlockedList([...blockedList, ...cardList]);
+    const newBlockedList = isFilter ? cardList : [...blockedList, ...cardList];
+    setBlockedList(newBlockedList);
   }, [cardList]);
 
   const loadMore = () => {
     if (meta?.nextPage) {
       fetchCardData(null, { limit: 10, offset: meta?.nextPage });
+      setIsCardListLoading(true);
     }
   };
 

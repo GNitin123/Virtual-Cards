@@ -51,9 +51,13 @@ class Card {
     return Card.#find(query);
   }
 
-  getCardHolders() {
+  getCardHolders(tab) {
     let cardHolders = [...cardData.card];
-    return cardHolders.map(card => card.card_holder);
+    return cardHolders.filter(card => {
+      if (tab === card.status || tab === '') {
+        return card;
+      }
+    });
   }
 }
 

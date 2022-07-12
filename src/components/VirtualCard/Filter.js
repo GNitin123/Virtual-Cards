@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import useFetchCard from '../../utils/fetchCard';
 const { Option } = Select;
 
-const Filter = ({ searchValue, filterData, cardHolderList }) => {
+const Filter = ({ searchValue, filterData, cardHolderList, currentTab }) => {
   const [isSearch, setIsSearch] = useState(false);
   const [cardType, setCardType] = useState('');
   const [cardHolder, setCardHolder] = useState();
@@ -12,8 +12,8 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
   const { getCardHolders } = useFetchCard();
 
   useEffect(() => {
-    getCardHolders();
-  }, []);
+    getCardHolders(currentTab);
+  }, [currentTab]);
 
   const clearSearch = () => {
     setIsSearch(preSearch => !preSearch);
@@ -46,9 +46,9 @@ const Filter = ({ searchValue, filterData, cardHolderList }) => {
 
   const cardHolderOptions =
     cardHolderList.length &&
-    cardHolderList.map((name, index) => (
-      <Option key={index} value={name.toLowerCase()}>
-        {name}
+    cardHolderList.map((card, index) => (
+      <Option key={index} value={card.card_holder.toLowerCase()}>
+        {card.card_holder}
       </Option>
     ));
 

@@ -14,10 +14,10 @@ const useAPI = () => {
     });
   };
 
-  const getCardHolderDetail = () => {
+  const getCardHolderDetail = tab => {
     return new Promise((resolve, reject) => {
       try {
-        const response = card.getCardHolders();
+        const response = card.getCardHolders(tab);
         setTimeout(() => {
           resolve(response);
         }, 500);

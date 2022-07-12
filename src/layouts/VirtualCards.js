@@ -87,6 +87,7 @@ const VirtualCards = () => {
         searchValue={searchValue}
         filterData={filterData}
         cardHolderList={cardHolderList}
+        currentTab={currentTab}
       />
     </div>
   );

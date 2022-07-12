@@ -54,8 +54,8 @@ const useFetchCard = () => {
     query = {};
   };
 
-  const getCardHolders = async () => {
-    const response = await getCardHolderDetail();
+  const getCardHolders = async tab => {
+    const response = await getCardHolderDetail(tab);
     setCardHolderList(response);
   };
 
