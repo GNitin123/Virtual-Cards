@@ -53,11 +53,7 @@ class Card {
 
   getCardHolders(tab) {
     let cardHolders = [...cardData.card];
-    return cardHolders.filter(card => {
-      if (tab === card.status || tab === '') {
-        return card;
-      }
-    });
+    return cardHolders.filter(card => tab === card.status || (tab === '' && card));
   }
 }
 

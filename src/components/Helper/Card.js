@@ -15,6 +15,7 @@ const Card = ({ cardContent, spent, availableToSpend }) => {
     return () => {
       clearInterval(timeOutId);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

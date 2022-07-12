@@ -12,6 +12,7 @@ const BlockedVirtualCard = () => {
   useEffect(() => {
     const newBlockedList = isFilter ? cardList : [...blockedList, ...cardList];
     setBlockedList(newBlockedList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardList]);
 
   const loadMore = () => {

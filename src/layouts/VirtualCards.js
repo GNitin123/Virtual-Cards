@@ -32,6 +32,7 @@ const VirtualCards = () => {
       cardType,
       cardHolder: cardHolderName,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTab, search, cardType, cardHolderName]);
 
   const handleTabChange = key => {

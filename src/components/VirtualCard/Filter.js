@@ -13,6 +13,7 @@ const Filter = ({ searchValue, filterData, cardHolderList, currentTab }) => {
 
   useEffect(() => {
     getCardHolders(currentTab);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentTab]);
 
   const clearSearch = () => {
@@ -47,8 +48,8 @@ const Filter = ({ searchValue, filterData, cardHolderList, currentTab }) => {
   const cardHolderOptions =
     cardHolderList.length &&
     cardHolderList.map((card, index) => (
-      <Option key={index} value={card.card_holder.toLowerCase()}>
-        {card.card_holder}
+      <Option key={index} value={card?.card_holder.toLowerCase()}>
+        {card?.card_holder}
       </Option>
     ));
 

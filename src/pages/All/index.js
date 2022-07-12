@@ -14,6 +14,7 @@ const AllVirtualCard = () => {
   useEffect(() => {
     const newList = isFilter ? cardList : [...allCardList, ...cardList];
     setAllCardList(newList);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cardList]);
 
   const loadMore = () => {
