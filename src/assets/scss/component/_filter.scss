@@ -6,17 +6,16 @@
   justify-content: flex-end;
   align-items: center;
   &__button {
-    background: $grey--twentyNine;
-    border: none;
-    font-size: 1rem;
-    padding: 0em 1.4em;
-    height: 2.5rem;
-    font-weight: 500;
-    font-size: 1rem;
+    background: $grey--twentyNine !important;
+    border: none !important;
+    font-size: 1rem !important;
+    padding: 0em 1.4em !important;
+    height: 2.5rem !important;
+    font-weight: 500 !important;
     &:hover,
     &:focus {
-      background: $grey--twentyEight;
-      color: $black;
+      background: $grey--twentyEight !important;
+      color: $black !important;
     }
   }
   &__search {
@@ -76,33 +75,33 @@
     gap: 20px;
     &__apply-btn,
     &__clear-btn {
-      height: 40px;
-      border-radius: 0.5rem;
-      font-weight: 500;
+      height: 40px !important;
+      border-radius: 0.5rem !important;
+      font-weight: 600 !important;
       text-transform: capitalize;
-      font-size: 16px;
+      font-size: 16px !important;
     }
     &__apply-btn {
       flex: 1;
-      color: $white;
-      background: $red--four;
+      color: $white !important;
+      background: $red--four !important;
       &:focus,
       &:hover {
-        color: $white;
-        background: $red--four;
-        outline: $red--four;
+        color: $white !important;
+        background: $red--four !important;
+        outline: $red--four !important;
       }
     }
     &__clear-btn {
       flex: 1;
-      color: $black;
-      border: none;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      color: $black !important;
+      border: none !important;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
       &:focus,
       &:hover {
-        color: $black;
-        background: $white;
-        outline: $black;
+        color: $black !important;
+        background: $white !important;
+        outline: $black !important;
       }
     }
   }
